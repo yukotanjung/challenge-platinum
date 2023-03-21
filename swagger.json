@@ -1,0 +1,515 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Gold Binar Doc",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": ""
+      }
+    ],
+    "tags": [
+      {
+        "name": "User"
+      },
+      {
+        "name": "Order"
+      },
+      {
+        "name": "Item"
+      }
+    ],
+    "paths": {
+      "/users/user": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "User List",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/users/inactive-user": {
+        "put": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Inactive User",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {
+                    "userid": {
+                      "type": "integer",
+                      "example": "7"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/users/activated-user": {
+        "put": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Actived User",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {
+                    "userid": {
+                      "type": "integer",
+                      "example": "7"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/users/add-user": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Register",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "example": "rudirawan"
+                    },
+                    "password": {
+                      "type": "integer",
+                      "example": "12345"
+                    },
+                    "fullname": {
+                      "type": "string",
+                      "example": "Rudi Irawan"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "rudi@gmail.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/users/user-login": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Login User",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "example": "yukotanjung"
+                    },
+                    "password": {
+                      "type": "integer",
+                      "example": "12345"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/users/logout": {
+        "put": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Logout",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/orders/order": {
+        "get": {
+          "tags": [
+            "Order"
+          ],
+          "summary": "Order List",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/orders/add-order": {
+        "post": {
+          "tags": [
+            "Order"
+          ],
+          "summary": "Add Order",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {
+                    "item_id": {
+                      "type": "integer",
+                      "example": "2"
+                    },
+                    "qty": {
+                      "type": "integer",
+                      "example": "3"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/update-status-order": {
+        "put": {
+          "tags": [
+            "Order"
+          ],
+          "summary": "Update Status Order",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": "1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/orders/del-item-order": {
+        "delete": {
+          "tags": [
+            "Order"
+          ],
+          "summary": "Remove Item Order",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/items/item": {
+        "get": {
+          "tags": [
+            "Item"
+          ],
+          "summary": "Item List",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/items/add-item": {
+        "post": {
+          "tags": [
+            "Item"
+          ],
+          "summary": "Add Item",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {
+                    "item_name": {
+                      "type": "string",
+                      "example": "sepatu"
+                    },
+                    "stock": {
+                      "type": "integer",
+                      "example": "3"
+                    },
+                    "price": {
+                      "type": "integer",
+                      "example": "75000"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/items/update-item": {
+        "put": {
+          "tags": [
+            "Item"
+          ],
+          "summary": "Update Item",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "properties": {
+                    "item_id": {
+                      "type": "integer",
+                      "example": "1"
+                    },
+                    "item_name": {
+                      "type": "string",
+                      "example": "sabun mandi wangi"
+                    },
+                    "stock": {
+                      "type": "integer",
+                      "example": "17"
+                    },
+                    "price": {
+                      "type": "integer",
+                      "example": "1750"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "1 = Active , 0 = Inactive",
+                      "example": "1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjcsImlhdCI6MTY3OTExNDM0Nn0.hzGiGbgKpmFAc6zjBGzUBboPxyOrRgg_HaGjAYYKsVM"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/items/detail-item": {
+        "get": {
+          "tags": [
+            "Item"
+          ],
+          "summary": "Detail Item",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
