@@ -1,5 +1,6 @@
 const router = require("express").Router()
-const auth = require("../middlewares/auth.js")
+const auth = require("../middlewares/authcustomer.js")
+const authadmin = require("../middlewares/auth.js")
 const { body , validationResult, check  } = require('express-validator')
 
 const Orders = require("../controllers/orders")
@@ -26,7 +27,7 @@ check('id').notEmpty().withMessage('ID must be filled'),
     order.removeOrder(req,res)
 } )
 
-router.put('/update-status-order',auth, (req,res) => {
+router.put('/update-status-order',authadmin, (req,res) => {
   order.updateStatus(req,res)
 } )
 
