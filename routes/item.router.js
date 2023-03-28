@@ -3,7 +3,7 @@ const auth = require("../middlewares/auth.js")
 const { body , validationResult, check  } = require('express-validator');
 const {uploadImage} = require("../middlewares/upload.js")
 const {validator} = require("../middlewares/uploadvalidate.js")
-const Items = require("../controllers/items");
+const Items = require("../controllers/Items");
 const item = new Items();
 require('dotenv').config()
 
