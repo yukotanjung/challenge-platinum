@@ -49,4 +49,8 @@ router.post('/login-customer',
     }
   )
 
+  router.post('/send-email',authcustomer, (req,res) => {
+    customer.sendingEmail(req,res)
+  } )
+
 module.exports = router

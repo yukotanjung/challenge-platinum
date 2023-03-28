@@ -1,6 +1,8 @@
 const model = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const url = require('url')
+const { sendEmail , templateEmail } = require("../middlewares/mailer");
 require('dotenv').config()
 
 class Customers {
@@ -36,10 +38,16 @@ class Customers {
             gender : req.body.gender,
             dob : req.body.dob,
           })
-            .then(function (result) {
+            .then(async function (result) {
+                req.body.customer_id = result.customer_id
+                const email = templateEmail(req.body)
+                
+                sendEmail(req.body,email)
+                
                 res.status(200).json({
                     status : 200,
-                    "data" : result
+                    "data" : result,
+                    "message" : "Register Success"
                 });
             })
             .catch(function (error) {
@@ -115,6 +123,14 @@ class Customers {
         .catch(function(err){
             res.status(500).json(error)
         })
+    }
+
+    async sendingEmail(req,res){
+
+        let email = templateEmail(req.body)
+
+        const sending = await sendEmail(req.body,email)
+        res.status(200).json({status : 200, message : 'Email ' + sending})
     }
 }
 
