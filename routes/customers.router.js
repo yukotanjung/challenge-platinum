@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const authcustomer = require("../middlewares/authcustomer.js");
 const { body , validationResult, check  } = require('express-validator');
-const Customers = require("../controllers/customers");
+const Customers = require("../controllers/Customers");
 const customer = new Customers();
 
 router.get('/list-customer', (req,res) => {

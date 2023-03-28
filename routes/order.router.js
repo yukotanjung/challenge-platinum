@@ -3,7 +3,7 @@ const auth = require("../middlewares/authcustomer.js")
 const authadmin = require("../middlewares/auth.js")
 const { body , validationResult, check  } = require('express-validator')
 
-const Orders = require("../controllers/orders")
+const Orders = require("../controllers/Orders")
 const order = new Orders();
 
 router.get('/order',auth, (req,res) => {
