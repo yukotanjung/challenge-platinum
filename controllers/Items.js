@@ -1,11 +1,14 @@
 const model = require("../models");
 const multer = require('multer');
 const { uploadCloudinary } = require("../middlewares/upload");
+const { json } = require("sequelize");
 
 class Items{
     
    async listItem(req,res){
-      await model.Items.findAll()
+      await model.Items.findAll({
+        include: model.Gallery
+      })
         .then(function (result) {
             res.status(200).json({
                 status : 200,
@@ -63,10 +66,12 @@ class Items{
         await model.Items.findOne({
             where : {
                 item_id : req.body.item_id
-            }
+            },
+            include: model.Gallery
           }
           )
             .then(function (result) {
+               
                 res.status(200).json({
                     status : 200,
                     data : result

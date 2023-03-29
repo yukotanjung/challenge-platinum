@@ -6,12 +6,13 @@ const Sequelize = require('sequelize');
 class Orders{
     
    async listOrder(req,res){
-    let decodedId = req.decoded.userid
+    let decodedId = req.decoded.customer_id
     let userid = Number(decodedId)
       await model.Orders.findAll({
         where : {
           userid : userid,
-        }
+        },
+        include : model.Items
       })
         .then(function (result) {
             res.status(200).json({
@@ -25,7 +26,7 @@ class Orders{
     }
 
     async addOrder(req,res){
-        let decodedId = req.decoded.userid
+        let decodedId = req.decoded.customer_id
         let userid = Number(decodedId)
      await model.Items.findOne({
         where : {
@@ -92,7 +93,7 @@ class Orders{
     }
 
     removeOrder(req,res){
-      let decodedId = req.decoded.userid;
+      let decodedId = req.decoded.customer_id;
       if (Number(decodedId) != Number(req.body.userid)) {
         return res.status(401).json({
           status : 401,

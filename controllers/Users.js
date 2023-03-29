@@ -20,7 +20,7 @@ class Users{
         res.status(200).json({
           status : 200,
           message : "login success",
-          token : jwt.sign({userid : result.userid},'yuko-binar')
+          token : jwt.sign({userid : result.userid,type:'admin'},'yuko-binar')
         })
       }else{
         res.status(400).json({

@@ -6,15 +6,15 @@ module.exports = (req, res, next) => {
   if (token) {
     let verify = jwt.verify(token, "yuko-binar");
 
-    if(verify.type != 'admin'){
+    if(verify.type != 'customer'){
       res.status(401).json({
         message: "Kamu tidak memiliki akses",
       });
     }
 
-    model.Users.findOne({
+    model.Customers.findOne({
       where: {
-        userid: verify.userid,
+        customer_id: verify.customer_id,
       },
     })
       .then(function (result) {
