@@ -53,4 +53,8 @@ router.post('/login-customer',
     customer.sendingEmail(req,res)
   } )
 
+  router.put('/logout',authcustomer, (req,res) => {
+    customer.logOutCustomer(req,res)
+  } )
+
 module.exports = router
