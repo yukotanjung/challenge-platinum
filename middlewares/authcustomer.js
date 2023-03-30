@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
     if (checkBlackList) {
       return res.status(401).send({
         auth: false,
-        message: 'Your token is blacklist, please login again'
+        message: 'Kamu telah logout, silahkan login kembali'
       })
     }
 
