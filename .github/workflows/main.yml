@@ -35,6 +35,7 @@ jobs:
             git pull origin main
             git status
             npm install --omit=dev
+            sequelize db:migrate
             pm2 restart marketplace
             pm2 start server.js --name marketplace
             pm2 save -f

@@ -123,7 +123,7 @@ class Users{
       .then(function (result){
           res.status(200).json({
             status : 200,
-            "message" : "success inactive"
+            "message" : "success Activated"
         })
       })
       .catch(function(error){
@@ -131,18 +131,19 @@ class Users{
       })
     }
 
-    logOutUser(req,res){
-      const authHeader = req.headers["token"];
-      jwt.sign(authHeader, "yuko-binar", { expiresIn: 1 } , (logout, err) => {
-        if (logout) {
-          res.status(200).json({msg : 'You have been Logged Out' })
-        } else {
-          res.status(200).json({
-            error : err
-          })
-        }
-        
-        })
+    async logOutUser(req,res){
+        try {
+          if (req.headers.token) {
+              const token = req.headers["token"];
+              await model.BlacklistToken.create({ token: token })
+              res.json({ msg: 'Logout sucessfully' }).status(200);
+          } else {
+              res.json({ msg: 'Token required' }).status(422);
+          }
+      } catch (error) {
+          console.log(error);
+          res.json({ msg: error }).status(422);
+      }
     }
 }
 
