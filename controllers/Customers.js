@@ -132,6 +132,21 @@ class Customers {
         const sending = await sendEmail(req.body,email)
         res.status(200).json({status : 200, message : 'Email ' + sending})
     }
+
+    async logOutCustomer(req,res){
+        try {
+          if (req.headers.token) {
+              const token = req.headers["token"];
+              await model.BlacklistToken.create({ token: token })
+              res.json({ msg: 'Logout sucessfully' }).status(200);
+          } else {
+              res.json({ msg: 'Token required' }).status(422);
+          }
+      } catch (error) {
+          console.log(error);
+          res.json({ msg: error }).status(422);
+      }
+    }
 }
 
 module.exports = Customers
