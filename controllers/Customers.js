@@ -133,6 +133,27 @@ class Customers {
         res.status(200).json({status : 200, message : 'Email ' + sending})
     }
 
+    async verify(req,res){
+        await model.Customers.update({
+            status: 1
+          },
+          {
+              where : {
+                  customer_id : req.query.cid
+              }
+          }
+          )
+            .then(function (result) {
+                res.status(200).json({
+                    status : 200,
+                    message : "Email verified"
+                });
+            })
+            .catch(function (error) {
+                res.status(500).json({ error: error });
+            }); 
+    }
+
     async logOutCustomer(req,res){
         try {
           if (req.headers.token) {

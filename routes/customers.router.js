@@ -57,4 +57,8 @@ router.post('/login-customer',
     customer.logOutCustomer(req,res)
   } )
 
+  router.get('/verify-account', (req,res) => {
+    customer.verify(req,res)
+  } )
+
 module.exports = router
