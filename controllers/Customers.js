@@ -12,7 +12,7 @@ class Customers {
             attributes: ['fullname','username', 'email', 'dob', 'gender', 'status', 'createdAt',]
             })
         .then(function (result) {
-
+            console.log(result)
             res.status(200).json({
                 status : 200,
                 "data" : result
@@ -21,7 +21,7 @@ class Customers {
         .catch(function (err){
             res.status(500).json({
                 status : 500,
-                "data" : error,
+                "data" : err,
             })
         })
     }
@@ -37,6 +37,7 @@ class Customers {
             phone : req.body.phone,
             gender : req.body.gender,
             dob : req.body.dob,
+            status: 1
           })
             .then(async function (result) {
                 req.body.customer_id = result.customer_id
