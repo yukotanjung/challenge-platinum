@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Node.js CD
+name: Node.js CI/CD
 
 # Controls when the action will run.
 on:
@@ -12,6 +12,18 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v2
+    - name: Testing
+    uses: actions/setup-node@v1
+    - run: npm install
+    - run: npm test
+    env:
+      CI: true
+
+
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
@@ -24,7 +36,6 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-
           key: ${{ secrets.PRIVATE_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           port: 22
@@ -32,7 +43,7 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             cd ~/challenge-platinum
-            git pull origin main
+            git pull
             git status
             npm install --omit=dev
             sequelize db:migrate
