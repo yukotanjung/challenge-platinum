@@ -1,6 +1,8 @@
 const model = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Sequelize = require('sequelize');
+const op = Sequelize.Op;
 
 class Users{
 
@@ -51,6 +53,15 @@ class Users{
     }
 
     async addUser(req,res){
+      const alreadyExist = await model.Users.findOne({ 
+        where: {
+          [op.or]: [
+            {username: req.body.username},
+            {email: req.body.email}
+          ]
+        }
+       });
+      if(alreadyExist) return res.status(400).json("Username or Email already in use");
       let salt = bcrypt.genSaltSync(10);
       let hash = bcrypt.hashSync(req.body.password, salt);
       await model.Users.create({

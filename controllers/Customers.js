@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const url = require('url')
 const { sendEmail , templateEmail } = require("../middlewares/mailer");
 require('dotenv').config()
+const Sequelize = require('sequelize');
+const op = Sequelize.Op;
 
 class Customers {
 
@@ -12,7 +14,7 @@ class Customers {
             attributes: ['fullname','username', 'email', 'dob', 'gender', 'status', 'createdAt',]
             })
         .then(function (result) {
-
+            console.log(result)
             res.status(200).json({
                 status : 200,
                 "data" : result
@@ -21,12 +23,21 @@ class Customers {
         .catch(function (err){
             res.status(500).json({
                 status : 500,
-                "data" : error,
+                "data" : err,
             })
         })
     }
 
     async register(req,res){
+        const alreadyExist = await model.Customers.findOne({ 
+            where: {
+              [op.or]: [
+                {username: req.body.username},
+                {email: req.body.email}
+              ]
+            }
+        });
+        if(alreadyExist) return res.status(400).json("Username or Email already in use");
         let salt = bcrypt.genSaltSync(parseInt(process.env.SALT))
         let hash = bcrypt.hashSync(req.body.password, salt)
         await model.Customers.create({
@@ -37,6 +48,7 @@ class Customers {
             phone : req.body.phone,
             gender : req.body.gender,
             dob : req.body.dob,
+            status: 1
           })
             .then(async function (result) {
                 req.body.customer_id = result.customer_id
