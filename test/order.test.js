@@ -4,7 +4,7 @@ const app = require('../server');
 
 function createLoginToken(server, loginDetails, done) {
   request(server)
-      .post('/login')
+      .post('/users/user-login')
       .send(loginDetails)
       .end(function(error, response) {
           if (error) {
