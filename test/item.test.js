@@ -1,10 +1,10 @@
 const request = require('supertest');
 
-const app = require('./server');
+const app = require('../server');
 
 function createLoginToken(server, loginDetails, done) {
   request(server)
-      .post('/login')
+      .post('/users/user-login')
       .send(loginDetails)
       .end(function(error, response) {
           if (error) {
@@ -15,7 +15,7 @@ function createLoginToken(server, loginDetails, done) {
       });
 }
 
-describe('GET /', () => {
+describe('Items', () => {
   it('GET / => array of items', () => {
     return request(app)
       .get('/items/item')
@@ -41,7 +41,7 @@ describe('GET /', () => {
       });
   });
 
-  it('GET / => a item by item ID', () => {
+  it('GET /items/detail-item/ => a item by item ID', () => {
     return request(app)
       .get('/items/detail-item/')
 
@@ -68,9 +68,9 @@ describe('GET /', () => {
       });
   });
 
-  it('POST / => create a new item', () => {
+  it('POST /items/add-item/ => create a new item', () => {
     return (
-      createLoginToken(app, { username: 'thohariakb', password: 'thohari123' }, function(header) {
+      createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
         request(app)
         .post('/items/add-item/')
 
@@ -102,8 +102,8 @@ describe('GET /', () => {
     );
   });
 
-  it('POST / => item name correct data type check', () => {
-    return createLoginToken(app, { username: 'thohariakb', password: 'thohari123' }, function(header) {
+  it('POST /items/add-item/ => item name correct data type check', () => {
+    return createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
       request(app).post('/items/add-item/').send({
         item_name: '',
         stock: 5,
@@ -111,5 +111,41 @@ describe('GET /', () => {
       }).expect(400);
     });
     })
+
+    it('PUT /items/update-item/ => update an item', () => {
+      return (
+        createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
+          request(app)
+          .put('/items/update-item/')
+  
+          // Item send code
+  
+          .set('Authorization', header)
+          .send({
+            item_id: 1,
+            item_name: 'Macbook Pro 16gb 2019',
+            stock: 7,
+            price: 20000000,
+            status: 1
+          })
+  
+          .expect('Content-Type', /json/)
+  
+          .expect(200)
+        })
+      );
+    });
+  
+    it('UPDATE /items/update-item/ => item name correct data type check', () => {
+      return createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
+        request(app).put('/items/update-item/').send({
+          item_id: 1,
+          item_name: '',
+          stock: 7,
+          price: 20000000,
+          status: 1
+        }).expect(400);
+      });
+      })
 
 });
