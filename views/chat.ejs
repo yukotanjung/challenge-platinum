@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chating</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <div class="container">
+      <!-- Page header start -->
+      <div class="page-title">
+        <div class="row gutters">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <h5 class="title">Chat App</h5>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"></div>
+        </div>
+      </div>
+      <!-- Page header end -->
+      <!-- Content wrapper start -->
+      <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card m-0">
+              <!-- Row start -->
+              <div class="row no-gutters">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
+                  <div class="users-container">
+                    <div class="chat-search-box">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                          <button type="button" class="btn btn-info">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <ul class="users">
+                      
+                      
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
+                  <div class="selected-user">
+                    <span>To: <span id="toname" class="name">-</span>
+                    
+                    </span><br>
+                    <span class="statuschat"></span>
+                  </div>
+                  <div class="chat-container">
+                    <ul class="chat-box chatContainerScroll">
+                      
+                    </ul>
+                      <div class="form-group mt-3 mb-0">
+                        <input type="hidden" name="custid" id="custid" value="<%= custid %>">
+                        <input type="hidden" name="userid" id="userid" value="<%= userid %>">
+                        <input type="hidden" name="type" id="type" value="<%= type %>">
+                        <input type="text" name="message" id="message" class="form-control" placeholder="Type your message here...">
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Row end -->
+            </div>
+          </div>
+        </div>
+        <!-- Row end -->
+      </div>
+      <!-- Content wrapper end -->
+    </div>
+  </body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+var socket = io();
+var oda = "chatroom";
+var mesajKutusu = document.getElementById('m');
+const custid = $("#custid").val()
+const userid = $("#userid").val()
+const typeuser = $("#type").val()
+const hostname  = window.location.origin
+
+$( document ).ready(async function() {
+  await startChat()
+  await getChat()
+  await getList()
+  await getName()
+})
+
+function getList(){
+  $.ajax({
+        type: "POST",
+        url: hostname + '/chat/get-chat-list',
+        data: {user_id:userid,customer_id:custid,type:typeuser},
+        dataType: "json",
+        success: function(data) {
+            content = ``
+            if(typeuser == 'c'){
+               img = `https://www.bootdey.com/img/Content/avatar/avatar3.png`
+            }else if(typeuser == 'u'){
+               img =  `https://www.bootdey.com/img/Content/avatar/avatar5.png`
+            }
+            $.each(data.data, function(key, value) {
+              content = `<li class="person">
+                        <div class="user">
+                          <img src="${img}">
+                        </div>
+                        <p class="name-time">
+                          <span class="name">${value.fullname}</span>
+                        </p>
+                      </li>`
+              
+            });
+
+            $(".users").html(content)
+        },
+    });
+}
+
+function getName(){
+  $.ajax({
+        type: "POST",
+        url: hostname + '/chat/get-chat-name',
+        data: {user_id:userid,customer_id:custid},
+        dataType: "json",
+        success: function(data) {
+            if(typeuser == 'c'){
+              $("#toname").html(data.username)
+            }else if(typeuser == 'u'){
+              $("#toname").html(data.customername)
+            }
+        },
+    });
+}
+function getChat(){
+  $.ajax({
+        type: "POST",
+        url: hostname + '/chat/get-chat',
+        data: {user_id:userid,customer_id:custid},
+        dataType: "json",
+        success: function(data) {
+            content = ''
+            $.each(data.data, function(key, value) {
+              let date = new Date(value.createdAt)
+              let formattedDate = `${date.getDate()}-${(date.getMonth() + 1)}-${date.getFullYear()} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()} `
+              if(value.type == "c"){
+                content += `<li class="chat-right">
+                        <div class="chat-hour">${formattedDate} <span class="fa fa-check-circle"></span>
+                        </div>
+                        <div class="chat-text">${value.message}</div>
+                        <div class="chat-avatar">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar5.png">
+                        </div>
+                      </li>`
+              }else if(value.type == "u"){
+                content += `<li class="chat-left">
+                        <div class="chat-avatar">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png">
+                          </div>
+                          <div class="chat-text">${value.message}</div>
+                        <div class="chat-hour">${formattedDate} <span class="fa fa-check-circle"></span>
+                        </div>
+                        
+                      </li>`
+              }
+            });
+
+            $(".chatContainerScroll").html(content)
+        },
+    });
+}
+
+socket.on(window.oda, function(msg) {
+    getChat()
+});
+
+
+
+function startChat() {
+    let username = $("#custid").val()
+    console.log(username)
+    socket.emit('new user', username, function(data) {
+        
+    })
+}
+
+var typing = false;
+var timeout = undefined;
+
+$('#message').keyup('click', function() {
+    socket.emit('typing');
+    
+});
+
+$('#message').on('keypress',function(e) {
+  if(e.which == 13) {
+        socket.emit("privateMessage", {
+          room: window.oda,
+          msg: $('#message').val(),
+          custid : custid,
+          userid : userid,
+          type : typeuser
+      });
+      $("#message").val('')
+      $("#message").focusout()
+    }
+});
+socket.on('typing', function(data) {
+  $(".statuschat").html(`<i>sedang mengetik...</i>`)
+   
+    setTimeout(function() {
+      $(".statuschat").html('')
+    }, 1000);
+});
+</script>
