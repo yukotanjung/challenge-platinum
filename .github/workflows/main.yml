@@ -31,7 +31,9 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             cd ~/challenge-platinum
-            git pull
+            git fetch --all 
+            git reset --hard origin/main
+            git pull origin main
             git status
             npm install --omit=dev
             sequelize db:migrate

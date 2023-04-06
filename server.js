@@ -14,7 +14,7 @@ const pool = new Pool({
   user: 'postgres',
   host: '127.0.0.1',
   database: 'marketplace',
-  password: '12345',
+  password: 'postgres',
   port: 5432,
   queueLimit : 0, // unlimited queueing
   connectionLimit : 0
