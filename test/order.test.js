@@ -17,12 +17,18 @@ function createLoginToken(server, loginDetails, done) {
 
   describe('Orders', () => {
     it('GET / => list of order', () => {
-      return request(app)
+      return (
+        createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+        request(app)
         .get('/orders/order')
+
+        .set('Authorization', header)
 
         .expect('Content-Type', /json/)
 
         .expect(200)
+        })
+      );
     });
 
   it('POST /orders/add-order/ => create a new order', () => {
