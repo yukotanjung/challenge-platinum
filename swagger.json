@@ -24,6 +24,9 @@
     },
     {
       "name": "Customer > Order"
+    },
+    {
+      "name": "Chat"
     }
   ],
   "paths": {
@@ -617,7 +620,7 @@
                   },
                   "phone": {
                     "type": "integer",
-                    "example": "085648780258"
+                    "example": 85648780258
                   },
                   "gender": {
                     "type": "string",
@@ -633,6 +636,32 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/customer/profile": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Profile",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "{{token_customer}}"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -677,12 +706,21 @@
         }
       }
     },
-    "/customer/profile": {
-      "get": {
+    "/customer/send-email": {
+      "post": {
         "tags": [
           "Customer"
         ],
-        "summary": "Profile",
+        "summary": "Emailer",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {}
+              }
+            }
+          }
+        },
         "parameters": [
           {
             "name": "token",
@@ -693,6 +731,112 @@
             "example": "{{token_customer}}"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/chat/get-chat": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "Get Chat",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "example": "10"
+                  },
+                  "customer_id": {
+                    "type": "integer",
+                    "example": "8"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/chat/get-chat-name": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "Get Chat Name",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "example": "10"
+                  },
+                  "customer_id": {
+                    "type": "integer",
+                    "example": "8"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/chat//get-chat-list": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "Get Chat To List",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "example": "10"
+                  },
+                  "customer_id": {
+                    "type": "integer",
+                    "example": "8"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "u"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
