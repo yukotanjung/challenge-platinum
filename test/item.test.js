@@ -70,7 +70,7 @@ describe('Items', () => {
 
   it('POST /items/add-item/ => create a new item', () => {
     return (
-      createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+      createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
         request(app)
         .post('/items/add-item/')
 
@@ -103,7 +103,7 @@ describe('Items', () => {
   });
 
   it('POST /items/add-item/ => item name correct data type check', () => {
-    return createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+    return createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
       request(app).post('/items/add-item/').send({
         item_name: '',
         stock: 5,
@@ -114,7 +114,7 @@ describe('Items', () => {
 
     it('PUT /items/update-item/ => update an item', () => {
       return (
-        createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+        createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
           request(app)
           .put('/items/update-item/')
   
@@ -137,7 +137,7 @@ describe('Items', () => {
     });
   
     it('UPDATE /items/update-item/ => item name correct data type check', () => {
-      return createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+      return createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
         request(app).put('/items/update-item/').send({
           item_id: 1,
           item_name: '',

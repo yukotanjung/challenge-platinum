@@ -18,7 +18,7 @@ function createLoginToken(server, loginDetails, done) {
   describe('Orders', () => {
     it('GET / => list of order', () => {
       return (
-        createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+        createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
         request(app)
         .get('/orders/order')
 
@@ -33,7 +33,7 @@ function createLoginToken(server, loginDetails, done) {
 
   it('POST /orders/add-order/ => create a new order', () => {
     return (
-      createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+      createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
         request(app)
         .post('/orders/add-order/')
 
@@ -53,7 +53,7 @@ function createLoginToken(server, loginDetails, done) {
   });
   
   it('UPDATE /update-status-order => update status of order', () => {
-      return createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+      return createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
         request(app).put('/update-status-order').send({
           item_id: 1,
         }).expect(200)
@@ -61,7 +61,7 @@ function createLoginToken(server, loginDetails, done) {
     });
 
   it('DELETE /orders/del-item-order => update status of order', () => {
-    return createLoginToken(app, { username: 'admin', password: 'admin' }, function(header) {
+    return createLoginToken(app, { username: 'admin', password: 'adminpass' }, function(header) {
       request(app).delete('/orders/del-item-order').send({
         userid: 1,
         id: 1,
