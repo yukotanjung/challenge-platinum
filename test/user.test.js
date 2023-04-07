@@ -14,7 +14,7 @@ let token;
 
 beforeAll(async () => {
 
-  await db.sequelize.sync({ force: true });
+  await db.sequelize.sync();
   await request(app)
     .post('/users/user-login')
     .send(user);
@@ -24,6 +24,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await db.sequelize.close();
 });
+
 
 describe('Get List User', () => {
   it('return list user and status 200 when token is provided', () => {
@@ -68,6 +69,7 @@ describe('Register and Login', () => {
         });
 
       expect(res.statusCode).toEqual(400);
+      expect(res.body).toHaveProperty('status');
       expect(res.body).toHaveProperty('message', 'Username or Email already in use');
     });
   });
