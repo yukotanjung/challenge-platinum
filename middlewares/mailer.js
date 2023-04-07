@@ -5,14 +5,14 @@ function sendEmail(params,content) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.EMAIL,
-            pass: process.env.PWD
+            user: 'yuko.develop@gmail.com',
+            pass: 'pmjjmiamgiznobsm'
         }
     });
 
     
     var mailOptions = {
-        from: process.env.EMAIL,
+        from: 'yuko.develop@gmail.com',
         to: params.email,
         subject: 'Email Verification',
         html: content
