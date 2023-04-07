@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
-const port = 3000
+require('dotenv').config()
+const port = process.env.PORT || 3000
 const router = require("./routes/router.js");
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
@@ -9,16 +10,7 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const model = require("./models");
 
-const { Pool } = require('pg')
-const pool = new Pool({
-  user: 'postgres',
-  host: '127.0.0.1',
-  database: 'marketplace',
-  password: 'postgres',
-  port: 5432,
-  queueLimit : 0, // unlimited queueing
-  connectionLimit : 0
-});
+
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -91,8 +83,14 @@ io.on('connection', function (socket) {
  
  });
 
-server.listen(port,() =>{
+// server.listen(port,() =>{
+//     console.log('running server with port ' + port);
+// })
+
+if (process.env.NODE_ENV !== 'test') {
+  server.listen(port, () => {
     console.log('running server with port ' + port);
-})
+  });
+}
 
 module.exports = server
