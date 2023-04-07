@@ -2,26 +2,31 @@ const model = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Sequelize = require('sequelize');
+const { sequelize } = require("../models");
 
 class Orders{
     
    async listOrder(req,res){
     let decodedId = req.decoded.customer_id
     let userid = Number(decodedId)
-      await model.Orders.findAll({
-        where : {
-          userid : userid,
-        },
-        include : model.Items
-      })
-        .then(function (result) {
-            res.status(200).json({
-                status : 200,
-                "data" : result
-            });
-        })
-        .catch(function (error) {
-            res.status(500).json({ error: error });
+
+    const result = await sequelize.query(`
+            SELECT
+            "Orders".*,
+            "item_name" 
+          FROM
+            "Orders"
+            LEFT JOIN "Items" ON "Orders"."item_id" = "Items"."item_id" 
+          WHERE
+            "userid" = ${userid}
+        `, 
+            { 
+                type: sequelize.QueryTypes.SELECT 
+            }
+        )
+          res.status(200).json({
+            status : 200,
+            "data" : result
         });
     }
 
