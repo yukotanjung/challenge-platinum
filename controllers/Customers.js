@@ -174,13 +174,19 @@ class Customers {
           if (req.headers.token) {
               const token = req.headers["token"];
               await model.BlacklistToken.create({ token: token })
-              res.json({ msg: 'Logout sucessfully' }).status(200);
+              res.json({ 
+                status: 200,
+                message: 'Logout sucessfully' 
+            }).status(200);
           } else {
-              res.json({ msg: 'Token required' }).status(422);
+              res.json({ 
+                status: 200,
+                message: 'Token required' 
+            }).status(422);
           }
       } catch (error) {
           console.log(error);
-          res.json({ msg: error }).status(422);
+          res.json({ message: error }).status(400);
       }
     }
 }
