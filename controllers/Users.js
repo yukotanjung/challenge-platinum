@@ -22,7 +22,7 @@ class Users{
         res.status(200).json({
           status : 200,
           message : "login success",
-          token : jwt.sign({userid : result.userid,type:'admin'},'yuko-binar', { expiresIn: '1h' })
+          token : jwt.sign({userid : result.userid,type:'admin'}, process.env.JWT_SECRET , { expiresIn: '1h' })
         })
       }else{
         res.status(400).json({
@@ -62,6 +62,7 @@ class Users{
         }
        });
       if(alreadyExist) return res.status(400).json({
+        status: 400,
         message: "Username or Email already in use"
       });
       let salt = bcrypt.genSaltSync(10);

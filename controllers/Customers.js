@@ -37,7 +37,10 @@ class Customers {
               ]
             }
         });
-        if(alreadyExist) return res.status(400).json("Username or Email already in use");
+        if(alreadyExist) return res.status(400).json({
+            status: 400,
+            message: "Username or Email already in use"
+          });
         let salt = bcrypt.genSaltSync(parseInt(process.env.SALT))
         let hash = bcrypt.hashSync(req.body.password, salt)
         await model.Customers.create({
@@ -48,7 +51,7 @@ class Customers {
             phone : req.body.phone,
             gender : req.body.gender,
             dob : req.body.dob,
-            status: 1
+            status: 0
           })
             .then(async function (result) {
                 req.body.customer_id = result.customer_id
@@ -94,7 +97,7 @@ class Customers {
                 res.status(200).json({
                 status : 200,
                 message : "login success",
-                token : jwt.sign({customer_id : result.customer_id,type:'customer'},'yuko-binar')
+                token : jwt.sign({customer_id : result.customer_id,type:'customer'}, process.env.JWT_SECRET , { expiresIn: '1h' })
                 })
             }else{
                 res.status(400).json({
@@ -112,7 +115,7 @@ class Customers {
 
     async profile(req,res){
         let token = req.headers.token;
-        let verify = jwt.verify(token, "yuko-binar");
+        let verify = jwt.verify(token, process.env.JWT_SECRET);
         await model.Customers.findOne({
             where : {
                 customer_id :  verify.customer_id,
