@@ -38,7 +38,11 @@ class Users{
   }
     
    async listuser(req,res){
+      const page = req.query.page
+      const limit = req.query.limit
       await model.Users.findAll({
+        offset:((page-1)*limit),
+        limit : limit,
         attributes: ['username', 'fullname', 'email', 'status', 'input_date']
         })
         .then(function (result) {

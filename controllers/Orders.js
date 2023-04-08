@@ -9,7 +9,9 @@ class Orders{
    async listOrder(req,res){
     let decodedId = req.decoded.customer_id
     let userid = Number(decodedId)
-
+    const page = req.query.page
+    const limit = req.query.limit
+    const offset = ((page-1)*limit)
     const result = await sequelize.query(`
             SELECT
             "Orders".*,
@@ -18,7 +20,7 @@ class Orders{
             "Orders"
             LEFT JOIN "Items" ON "Orders"."item_id" = "Items"."item_id" 
           WHERE
-            "userid" = ${userid}
+            "userid" = ${userid} LIMIT ${limit} OFFSET ${offset}
         `, 
             { 
                 type: sequelize.QueryTypes.SELECT 
@@ -31,6 +33,9 @@ class Orders{
     }
 
     async listOrderAdmin(req,res){
+      const page = req.query.page
+      const limit = req.query.limit
+      const offset = ((page-1)*limit)
         const result = await sequelize.query(`
             SELECT
             "Orders".*,
@@ -40,6 +45,7 @@ class Orders{
             "Orders"
             LEFT JOIN "Items" ON "Orders"."item_id" = "Items"."item_id"
             LEFT JOIN "Customers" ON "Orders"."userid" = "Customers"."customer_id" 
+            LIMIT ${limit} OFFSET ${offset}
         `, 
             { 
                 type: sequelize.QueryTypes.SELECT 

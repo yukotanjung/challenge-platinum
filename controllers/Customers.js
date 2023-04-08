@@ -10,7 +10,11 @@ const op = Sequelize.Op;
 class Customers {
 
     async list(req,res){
+        const page = req.query.page
+        const limit = req.query.limit
         await model.Customers.findAll({
+            offset:((page-1)*limit),
+            limit : limit,
             attributes: ['fullname','username', 'email', 'dob', 'gender', 'status', 'createdAt',]
             })
         .then(function (result) {
