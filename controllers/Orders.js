@@ -30,6 +30,27 @@ class Orders{
         });
     }
 
+    async listOrderAdmin(req,res){
+        const result = await sequelize.query(`
+            SELECT
+            "Orders".*,
+            "item_name",
+            "fullname" 
+          FROM
+            "Orders"
+            LEFT JOIN "Items" ON "Orders"."item_id" = "Items"."item_id"
+            LEFT JOIN "Customers" ON "Orders"."userid" = "Customers"."customer_id" 
+        `, 
+            { 
+                type: sequelize.QueryTypes.SELECT 
+            }
+        )
+          res.status(200).json({
+            status : 200,
+            "data" : result
+        });
+    }
+
     async addOrder(req,res){
         let decodedId = req.decoded.customer_id
         let userid = Number(decodedId)
