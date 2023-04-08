@@ -67,6 +67,12 @@ For test use
 npm test
 ```
 
+For Windows OS if you found some kind of errors about NODE_ENV install node-env
+
+```bash
+npm install -g win-node-env
+```
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
