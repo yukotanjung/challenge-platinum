@@ -77,7 +77,7 @@ class Users{
             .then(function (result) {
                 res.status(200).json({
                     status : 200,
-                    "data" : result
+                    "message" : "Register Success"
                 });
             })
             .catch(function (error) {

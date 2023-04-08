@@ -61,7 +61,6 @@ class Customers {
                 
                 res.status(200).json({
                     status : 200,
-                    "data" : result,
                     "message" : "Register Success"
                 });
             })
