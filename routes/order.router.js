@@ -31,4 +31,8 @@ router.put('/update-status-order',authadmin, (req,res) => {
   order.updateStatus(req,res)
 } )
 
+router.get('/list-order-all',authadmin, (req,res) => {
+  order.listOrderAdmin(req,res)
+} )
+
 module.exports = router
