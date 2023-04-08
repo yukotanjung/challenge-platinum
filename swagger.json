@@ -149,7 +149,7 @@
                 "properties": {
                   "username": {
                     "type": "string",
-                    "example": "rudirawan"
+                    "example": "omednuka"
                   },
                   "password": {
                     "type": "integer",
@@ -157,11 +157,11 @@
                   },
                   "fullname": {
                     "type": "string",
-                    "example": "Rudi Irawan"
+                    "example": "Omed Nuka"
                   },
                   "email": {
                     "type": "string",
-                    "example": "rudi@gmail.com"
+                    "example": "omednuka@gmail.com"
                   }
                 }
               }
@@ -227,6 +227,32 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "{{token}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/orders/list-order-all": {
+      "get": { 
+        "tags": [
+          "Order"
+        ],
+        "summary": "Order List",
         "parameters": [
           {
             "name": "token",
@@ -316,15 +342,15 @@
                 "properties": {
                   "item_name": {
                     "type": "string",
-                    "example": "sepatu"
+                    "example": "Sepatu Vans Old Skul Black 42"
                   },
                   "stock": {
                     "type": "integer",
-                    "example": "3"
+                    "example": "7"
                   },
                   "price": {
                     "type": "integer",
-                    "example": "75000"
+                    "example": "500000"
                   }
                 }
               }
@@ -508,11 +534,11 @@
                 "properties": {
                   "item_id": {
                     "type": "integer",
-                    "example": "2"
+                    "example": "6"
                   },
                   "qty": {
                     "type": "integer",
-                    "example": "3"
+                    "example": "1"
                   }
                 }
               }
@@ -620,7 +646,7 @@
                   },
                   "phone": {
                     "type": "integer",
-                    "example": 85648780258
+                    "example": "085648780258"
                   },
                   "gender": {
                     "type": "string",
