@@ -6,8 +6,12 @@ const { json } = require("sequelize");
 class Items{
     
    async listItem(req,res){
+    const page = req.query.page
+    const limit = req.query.limit
       await model.Items.findAll({
-        include: model.Gallery
+        include: model.Gallery,
+        offset:((page-1)*limit),
+        limit : limit,
       })
         .then(function (result) {
             res.status(200).json({

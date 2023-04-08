@@ -44,6 +44,22 @@
               "type": "string"
             },
             "example": "{{token}}"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "2"
           }
         ],
         "responses": {
@@ -69,7 +85,7 @@
                 "properties": {
                   "userid": {
                     "type": "integer",
-                    "example": "7"
+                    "example": "2"
                   }
                 }
               }
@@ -109,7 +125,7 @@
                 "properties": {
                   "userid": {
                     "type": "integer",
-                    "example": "7"
+                    "example": "2"
                   }
                 }
               }
@@ -149,7 +165,7 @@
                 "properties": {
                   "username": {
                     "type": "string",
-                    "example": "omednuka"
+                    "example": "tanjungr"
                   },
                   "password": {
                     "type": "integer",
@@ -157,11 +173,11 @@
                   },
                   "fullname": {
                     "type": "string",
-                    "example": "Omed Nuka"
+                    "example": "Tanjung Yuko R"
                   },
                   "email": {
                     "type": "string",
-                    "example": "omednuka@gmail.com"
+                    "example": "yukotanjung@yahoo.com"
                   }
                 }
               }
@@ -248,7 +264,7 @@
       }
     },
     "/orders/list-order-all": {
-      "get": { 
+      "get": {
         "tags": [
           "Order"
         ],
@@ -261,6 +277,22 @@
               "type": "string"
             },
             "example": "{{token}}"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "3"
           }
         ],
         "responses": {
@@ -276,7 +308,7 @@
     "/update-status-order": {
       "put": {
         "tags": [
-          "Customer > Order"
+          "Order"
         ],
         "summary": "Update Status Order",
         "requestBody": {
@@ -319,6 +351,24 @@
           "Item"
         ],
         "summary": "Item List",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "3"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -342,15 +392,15 @@
                 "properties": {
                   "item_name": {
                     "type": "string",
-                    "example": "Sepatu Vans Old Skul Black 42"
+                    "example": "Sepatu Converse White Low"
                   },
                   "stock": {
                     "type": "integer",
-                    "example": "7"
+                    "example": "9"
                   },
                   "price": {
                     "type": "integer",
-                    "example": "500000"
+                    "example": "390000"
                   }
                 }
               }
@@ -390,11 +440,11 @@
                 "properties": {
                   "item_id": {
                     "type": "integer",
-                    "example": "1"
+                    "example": "3"
                   },
                   "item_name": {
                     "type": "string",
-                    "example": "sabun mandi wangi"
+                    "example": "Sepatu Vans Old Skul Black 42"
                   },
                   "stock": {
                     "type": "integer",
@@ -402,7 +452,7 @@
                   },
                   "price": {
                     "type": "integer",
-                    "example": "1750"
+                    "example": "500000"
                   },
                   "status": {
                     "type": "integer",
@@ -464,7 +514,7 @@
                 "properties": {
                   "item_id": {
                     "type": "integer",
-                    "example": "5"
+                    "example": "4"
                   },
                   "file": {
                     "type": "string",
@@ -487,9 +537,65 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "175"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"af-etoEGwYV6gggCBnbitr2G+ofsro\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Sat, 08 Apr 2023 04:31:50 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "data": {
+                    "inputdate": "2023-04-08T04:31:50.697Z",
+                    "id_gallery": 2,
+                    "item_id": 3,
+                    "filepath": "http://res.cloudinary.com/dkwniphvm/image/upload/v1680928310/1680928309038_bclew5.jpg"
+                  }
+                }
+              }
             }
           }
         }
@@ -509,6 +615,22 @@
               "type": "string"
             },
             "example": "{{token_customer}}"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "3"
           }
         ],
         "responses": {
@@ -534,7 +656,7 @@
                 "properties": {
                   "item_id": {
                     "type": "integer",
-                    "example": "6"
+                    "example": "3"
                   },
                   "qty": {
                     "type": "integer",
@@ -565,6 +687,46 @@
         }
       }
     },
+    "/orders/update-status-order": {
+      "put": {
+        "tags": [
+          "Customer > Order"
+        ],
+        "summary": "Update Status Order",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "example": "3"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "{{token}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
     "/orders/del-item-order": {
       "delete": {
         "tags": [
@@ -578,7 +740,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "{{token}}"
+            "example": "{{token_customer}}"
           }
         ],
         "responses": {
@@ -605,6 +767,22 @@
               "type": "string"
             },
             "example": "{{token}}"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "3"
           }
         ],
         "responses": {
@@ -664,9 +842,74 @@
         },
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "372"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"174-x1LtjSeQV1XcHUMFTZhvHQVybQo\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Sat, 08 Apr 2023 04:23:44 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "status": 200,
+                  "data": {
+                    "customer_id": 5,
+                    "fullname": "Yuko Tanjung",
+                    "username": "yukotanjung",
+                    "password": "$2a$10$AyfSf1dzfwcTzVn3cDBCbuqXAzvPCJRgJmd9Jnc/azKkUUVNgCpR2",
+                    "email": "yukotanjung@gmail.com",
+                    "phone": "085648780258",
+                    "gender": "Male",
+                    "dob": "1997-06-25",
+                    "status": 0,
+                    "updatedAt": "2023-04-08T04:23:44.283Z",
+                    "createdAt": "2023-04-08T04:23:44.283Z"
+                  },
+                  "message": "Register Success"
+                }
+              }
             }
           }
         }
